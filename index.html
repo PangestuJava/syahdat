@@ -24,6 +24,8 @@
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
@@ -245,35 +247,46 @@
                     </div>
                     <div class="col-12">
                         <div class="contact-form">
-                            <div id="success"></div>
-                            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                            <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                                <strong>Makasih Guys! </strong> Pesan Sudah Dikirim.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form name="syahdat-form" id="contactForm" novalidate="novalidate">
                                 <div class="form-row">
                                     <div class="control-group col-sm-6">
                                         <input type="text" class="form-control p-4" id="name" placeholder="Nama"
-                                            required="required"
+                                            required="required" name="nama"
                                             data-validation-required-message="Tulis Nama Anda Disini" />
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="control-group col-sm-6">
                                         <input type="email" class="form-control p-4" id="email" placeholder="Email"
-                                            required="required"
+                                            required="required" name="email"
                                             data-validation-required-message="Tulis Email Anda Disini" />
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <input type="text" class="form-control p-4" id="subject" placeholder="Subyek"
-                                        required="required" data-validation-required-message="Tolong Tulis Subyek" />
+                                        required="required" name="subyek"
+                                        data-validation-required-message="Tolong Tulis Subyek" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
                                     <textarea class="form-control py-3 px-4" rows="5" id="message" placeholder="Pesan"
-                                        required="required"
+                                        required="required" name="pesan"
                                         data-validation-required-message="Tulis Pesan Anda Disini"></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">Kirim
+                                    <button class="btn btn-primary py-3 px-4 d-none btn-loading" type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Sabar Guys...
+                                    </button>
+                                    <button class="btn btn-primary py-3 px-4 btn-kirim" type="submit"
+                                        id="sendMessageButton">Kirim
                                         Pesan</button>
                                 </div>
                             </form>
@@ -335,6 +348,37 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxwKDV4fSX53-exPd_4Qtcjzxp8rDatbX8FGliopdqbCpN1NdQfpdaOpdc19NTBtxSing/exec'
+        const form = document.forms['syahdat-form']
+        const btnKirim = document.querySelector('.btn-kirim');
+        const btnLoading = document.querySelector('.btn-loading');
+        const myAlert = document.querySelector('.my-alert');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            // ketika tombol submit di klik
+            // tampilkan tombol loading, hilangkan tombol kirim
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    btnLoading.classList.toggle('d-none');
+                    btnKirim.classList.toggle('d-none');
+                    myAlert.classList.toggle('d-none');
+                    window.setTimeout(function () {
+                        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                            $(this).remove();
+                        })
+                    }, 3000);
+                    form.reset();
+                    console.log('Success!', response);
+                })
+                .catch(error => console.error('Error!', error.message))
+        });
+    </script>
+
 </body>
 
 </html>
