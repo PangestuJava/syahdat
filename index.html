@@ -253,15 +253,14 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <form id="contactForm" novalidate="novalidate"
-                                action="https://formsubmit.co/pangestujava78@gmail.com" method="post">
+                            <form action="https://formsubmit.co/pangestujava78@gmail.com" method="post">
                                 <input type="hidden" name="_captcha" value="false">
                                 <input type="hidden" name="_next"
                                     value="https://pangestujava.github.io/syahdat/index.html">
                                 <div class="form-row">
                                     <div class="control-group col-sm-6">
                                         <input type="text" class="form-control p-4" id="name" placeholder="Nama"
-                                            required="required" name="nama"
+                                            required="required" name="name"
                                             data-validation-required-message="Tulis Nama Anda Disini" />
                                         <p class="help-block text-danger"></p>
                                     </div>
@@ -274,13 +273,13 @@
                                 </div>
                                 <div class="control-group">
                                     <input type="text" class="form-control p-4" id="subject" placeholder="Subyek"
-                                        required="required" name="subyek"
+                                        required="required" name="subject"
                                         data-validation-required-message="Tolong Tulis Subyek" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
                                     <textarea class="form-control py-3 px-4" rows="5" id="message" placeholder="Pesan"
-                                        required="required" name="pesan"
+                                        required="required" name="message"
                                         data-validation-required-message="Tulis Pesan Anda Disini"></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
@@ -290,7 +289,7 @@
                                             aria-hidden="true"></span>
                                         Mohon Tunggu...
                                     </button>
-                                    <button class="btn btn-primary py-3 px-4 btn-kirim" type="submit"
+                                    <button class="btn btn-primary py-3 px-4 btn-kirim" type="submit" name="submit"
                                         id="sendMessageButton">Kirim
                                         Pesan</button>
                                 </div>
